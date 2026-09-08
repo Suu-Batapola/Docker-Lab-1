@@ -1,0 +1,17 @@
+Reflection Answers
+
+1. Image vs. Container in the run
+- Image: The read-only template/blueprint (e.g., hello-se:dev, postgres:16) containing application code, dependencies, and setup instructions.
+- Container: The live, isolated running instance created from an image executing the application processes.
+
+2. One Dockerfile choice, and what reversing it breaks
+- Choice: Copying requirements.txt and running 'pip install' BEFORE 'COPY . .'.
+- What reversing it breaks: Reversing the order breaks Docker's layer caching. Modifying source code (like app.py) would force pip to re-install all dependencies every time you build, making builds very slow.
+
+3. First real error, what logs showed, and what you changed
+- Postgres Initialization Error:
+  - What logs showed: "db-1 | You must specify POSTGRES_PASSWORD to a non-empty value..."
+  - What was changed: Added POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB environment variables to the db service in compose.yaml.
+- Port 5000 Conflict Error:
+  - What logs showed: "Bind for 0.0.0.0:5000 failed: port is already allocated"
+  - What was changed: Stopped the existing container running on host port 5000 using 'docker stop <container_id>'.
