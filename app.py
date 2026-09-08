@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return {"student_id": "demo-001", "name": "Rukshan", "message": "hello from inside the container"}
+    return {"student_id": "245506L", "name": "Sulashee Ayodhya", "message": "hello from inside the container"}
 
 @app.route("/health")
 def health():
